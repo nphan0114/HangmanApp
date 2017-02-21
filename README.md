@@ -9,16 +9,6 @@ Will might need to install CORS extension in order to retrieve API. I've tested 
     Chrome ext: Allow-Control-Allow-Origin: *
     Firefox ext: CORS Everywhere
 
-## Usage
-TODO: Write usage instructions
-
-## Contributing
-1. Fork it!
-2. Create your feature branch: `git checkout -b your-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin your-new-feature`
-5. Submit a pull request :D
-
 ## History
     # API Error #
 Tried changing the dataType using `$.get(url,function(){}, 'jsonp')` but ran into another error. The error was `Uncaught SyntaxError: Illegal break statement` because it had the word 'break' in the list. The solution I found for this was to install the CORS extensions above and it worked.
@@ -47,7 +37,7 @@ for(i in abc){
 
       # Added hangman diagram #
 Had to learn JS canvas to draw the stick figure.
-Hanger background is drown by me :D
+Hanger background is drawn by me :D
 
 
 

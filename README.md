@@ -21,11 +21,11 @@ TODO: Write usage instructions
 
 ## History
     # API Error #
-    Tried changing the dataType using `$.get(url,function(){}, 'jsonp')` but ran into another error. The error was `Uncaught SyntaxError: Illegal break statement` because it had the word 'break' in the list. The solution I found for this was to install the CORS extensions above and it worked.
+Tried changing the dataType using `$.get(url,function(){}, 'jsonp')` but ran into another error. The error was `Uncaught SyntaxError: Illegal break statement` because it had the word 'break' in the list. The solution I found for this was to install the CORS extensions above and it worked.
 
     #  Creating keyboard layout #
-    Oringally created a table with the alphabets in HTML.
-    Eventually found a better alternative
+Oringally created a table with the alphabets in HTML.
+Eventually found a better alternative
 ``` js
 var abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
     letter,
@@ -39,4 +39,17 @@ for(i in abc){
   }
 }
 ```
+
+    # Changed letter Keys interface #
+ Originally had the selected letter Key to hide once it's been played by setting the `visibility: none;`
+ Later changed it to where if correct, add a checkmark picture to it, otherwise add an x-mark then disable the Key with `pointer-events: none;`
+
+
+      # Added hangman diagram #
+Had to learn JS canvas to draw the stick figure.
+Hanger background is drown by me :D
+
+
+
+
 

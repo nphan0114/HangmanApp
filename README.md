@@ -9,8 +9,9 @@ Will might need to install CORS extension for API. I've tested with without the 
     Firefox ext: CORS Everywhere
 
 ## Installation
-    git clone 
-
+    git clone git://github.com/nphan0114/HangmanApp.git
+    cd HangmanApp
+  Open 'hangman.html' in browser of your choice. Chrome is preferred =D.
 
 ## Usage
 TODO: Write usage instructions

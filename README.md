@@ -8,6 +8,11 @@ Will might need to install CORS extension in order to retrieve API. I've tested 
   
     Chrome ext: Allow-Control-Allow-Origin: *
     Firefox ext: CORS Everywhere
+    
+## Use App
+      git clone https://github.com/nphan0114/HangmanApp.git
+      cd HangmanApp
+      open `index.html` in browser of your choice
 
 ## History
     # API Error #
@@ -39,7 +44,28 @@ for(i in abc){
 Had to learn JS canvas to draw the stick figure.
 Hanger background is drawn by me :D
 
+    # Implement submit letter on keypress #
+Implemented feature for user to press key on their press instead of having to use mouse click. I was able to put together the code but ran into a few problems:
+
+    1 - since there's a main menu that requires key input; how to enable keypress after beyong intro menu. 
+    Can resolve this by simply not having input in the intro, but I don't want to take that route.
+    2 - Need to pass incorrect guess to the incorrect list
+I've try adding a boolean `if(introMenuHidden){keypress()};` but was not successful. Need to look for other alternatives.
 
 
+--Example--
+``` js
+  $(window).keypress(function(event){
+    var thisKey = String.fromCharCode(event.which);
+    for (var key in abc) {
+      if (abc.hasOwnProperty(key)) {
+        var letter = abc.charAt(key);
+        if (thisKey == letter || thisKey == letter.toLowerCase()) {
+          selectedLetter(letter);
+        }
+      }
+    }
+  });
+  ```
 
 

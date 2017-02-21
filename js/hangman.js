@@ -57,7 +57,7 @@ function resetToDefaults(){
 
 // clear secretWord field and set new word
 function resetSecretWord(){
-  //reset secretWord to blank underscores 
+  //reset secretWord to blank underscores
   $('.hangman-secret-word[name="game-lost"]').each(function(div) {
     var resetLine = $(this)[div];
     resetLine.setAttribute('name','');
@@ -122,7 +122,7 @@ $('.intro input').keyup(function(event){
   }
 });
 
-// detect keyboard press
+// detect keyboard press - work in progress
 // if (introHidden) { // enable onWindow keypress if intro menu is hidden
   // $(window).keypress(function(event){
   //   var thisKey = String.fromCharCode(event.which);
@@ -138,7 +138,7 @@ $('.intro input').keyup(function(event){
   // });
 // }
 
-// Get a random word from word bank API
+// Get a random word from word bank API and set blank underscores
 function getSecretWord() {
     random = Math.floor(Math.random() * word.length);
     secretWord = word[random].toUpperCase();
@@ -165,31 +165,6 @@ function selectedLetter(thisLetter){
   } else {
     document.getElementById(thisLetter).setAttribute('class','wrongKey');
     badGuess();
-    // draw body part for each wrong guesses.
-    switch (guess) {
-      case 5:
-      drawHead();
-      break;
-      case 4:
-      drawBody();
-      break;
-      case 3:
-      drawLeftArm();
-      drawHead2();
-      break;
-      case 2:
-      drawRightArm();
-      break;
-      case 1:
-      drawLeftLeg();
-      drawHead3();
-      break;
-      case 0:
-      drawRightLeg();
-      drawHead4();
-      break;
-      default:  drawDead();
-    }
   }
 
   if (numChar < 1) {
@@ -224,7 +199,32 @@ function badGuess() {
   letter = targetDiv.id;
   $('.incorrect-letters').append(' ' + letter);
   $('.guess-count').text("Lives: " + guess);
-  return false;
+
+  // draw body part for each wrong guesses.
+  switch (guess) {
+    case 5:
+    drawHead();
+    break;
+    case 4:
+    drawBody();
+    break;
+    case 3:
+    drawLeftArm();
+    drawHead2(); // change face
+    break;
+    case 2:
+    drawRightArm();
+    break;
+    case 1:
+    drawLeftLeg();
+    drawHead3(); // change face
+    break;
+    case 0:
+    drawRightLeg();
+    drawHead4(); //change face
+    break;
+    default:  drawDead();
+  }
 }
 
 // game over pop menu; give option to play again
@@ -235,6 +235,7 @@ function gameOver(won) {
     $('.lose').show();
     $('.hangman-panel').css('opacity','.4');
   } else {
+    drawHead();
     $('.game-over').show();
     $('.lose').hide();
     $('.win').show();

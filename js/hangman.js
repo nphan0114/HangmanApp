@@ -52,22 +52,27 @@ function resetToDefaults(){
       }
     }
   });
-  $('.incorrect-letters').text('Already guessed: ');
+  $('.incorrect-letters').text('Incorrect guesses: ');
 }
 
 // clear secretWord field and set new word
 function resetSecretWord(){
-  $('.game-lost').each(function(div) {
+  //reset secretWord to blank underscores 
+  $('.hangman-secret-word[name="game-lost"]').each(function(div) {
     var resetLine = $(this)[div];
-    var lineChildren = resetLine.children;
-    for (var j in lineChildren) {
-      if (lineChildren.hasOwnProperty(j)) {
-        lineChildren[j].setAttribute('class','underscore');
+    resetLine.setAttribute('name','');
+  });
+  //reset secretWord to blank underscores
+  $('.hangman-secret-word').each(function(div){
+    var resetLineW = $(this)[div];
+    var lineChildren = resetLineW.children;
+    for (var k in lineChildren) {
+      if (lineChildren.hasOwnProperty(k)) {
+        lineChildren[k].setAttribute('class','underscore');
       }
     }
-    resetLine.setAttribute('class','hangman-secret-word');
-    $(this).text('');
   });
+  $('.hangman-secret-word').text('');
 }
 
 // start Hangman with single word
@@ -119,29 +124,26 @@ $('.intro input').keyup(function(event){
 
 // detect keyboard press
 // if (introHidden) { // enable onWindow keypress if intro menu is hidden
-//   $(window).keypress(function(event){
-//     var thisKey = String.fromCharCode(event.which);
-//     for (var key in abc) {
-//       if (abc.hasOwnProperty(key)) {
-//         var alpha = abc.charAt(key);
-//         if (thisKey == alpha || thisKey == alpha.toLowerCase()) {
-//           var matchedKey = alpha;
-//           selectedLetter(matchedKey);
-//         }
-//       }
-//     }
-//   });
+  // $(window).keypress(function(event){
+  //   var thisKey = String.fromCharCode(event.which);
+  //   for (var key in abc) {
+  //     if (abc.hasOwnProperty(key)) {
+  //       var alpha = abc.charAt(key);
+  //       if (thisKey == alpha || thisKey == alpha.toLowerCase()) {
+  //         var matchedKey = alpha;
+  //         selectedLetter(matchedKey);
+  //       }
+  //     }
+  //   }
+  // });
 // }
 
 // Get a random word from word bank API
 function getSecretWord() {
-  // $.get(api, function(data){
-  //   word = data.split('\n');
     random = Math.floor(Math.random() * word.length);
     secretWord = word[random].toUpperCase();
     numChar = secretWord.length;
     underScore();
-  // });
 }
 
 /* Get user selected letter and check if it's in the secretWord
@@ -163,7 +165,7 @@ function selectedLetter(thisLetter){
   } else {
     document.getElementById(thisLetter).setAttribute('class','wrongKey');
     badGuess();
-    // draw body part for each wrong guess.
+    // draw body part for each wrong guesses.
     switch (guess) {
       case 5:
       drawHead();
@@ -197,7 +199,7 @@ function selectedLetter(thisLetter){
     gameOver(false);
     $('.guess-count').text("Lives: x_x");
     $('.hangman-secret-word').each(function(div){
-      $(this)[div].setAttribute('class','game-lost');
+      $(this)[div].setAttribute('name','game-lost');
     });
   }
 }

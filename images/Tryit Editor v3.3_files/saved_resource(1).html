@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://www.w3schools.com/graphics/tryit.asp?filename=trycanvas_image -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"></head><body contenteditable="false">
+
+<p>Image to use:</p>
+
+<img id="scream" width="500" height="600" src="./Wbjv2Wt.png" hidden="" alt="The Scream">
+
+<p>Canvas:</p>
+
+<canvas id="myCanvas" width="500" height="600" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.
+</canvas>
+
+<script>
+window.onload = function() {
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    var img = document.getElementById("scream");
+    ctx.drawImage(img, 0, 0);
+   
+   // right arm
+   ctx.beginPath();
+   	ctx.moveTo(255, 185);
+    ctx.lineTo(315, 330);
+    ctx.lineWidth = 10;
+	ctx.strokeStyle = "black";
+	ctx.stroke();
+    
+     ctx.beginPath();
+   	ctx.arc(315,330,6,0,2*Math.PI);
+	ctx.strokeStyle = "black";
+    ctx.fillStyle = "black";
+    ctx.lineWidth= 5;
+	ctx.stroke();
+    ctx.fill();
+    
+    // left arm
+   ctx.beginPath();
+   	ctx.moveTo(255, 185);
+    ctx.lineTo(215, 330);
+    ctx.lineWidth = 10;
+	ctx.strokeStyle = "black";
+	ctx.stroke();
+    
+   ctx.beginPath();
+   	ctx.arc(215,330,7,0,2*Math.PI);
+	ctx.strokeStyle = "black";
+    ctx.fillStyle = "black";
+    ctx.lineWidth= 5;
+	ctx.stroke();
+    ctx.fill();
+   
+   
+   // right leg
+   ctx.beginPath();
+   	ctx.moveTo(270, 475);
+    ctx.lineTo(275, 490);
+    ctx.lineWidth = 13;
+	ctx.strokeStyle = "black";
+	ctx.stroke();
+   
+   ctx.beginPath();
+   	ctx.moveTo(270, 410);
+    ctx.lineTo(270, 480);
+    ctx.lineWidth = 10;
+	ctx.strokeStyle = "black";
+	ctx.stroke();
+   
+   ctx.beginPath();
+   	ctx.moveTo(255, 305);
+    ctx.lineTo(270, 410);
+    ctx.lineWidth = 10;
+	ctx.strokeStyle = "black";
+	ctx.stroke();
+   
+   
+   // left leg
+   ctx.beginPath();
+   	ctx.moveTo(240, 475);
+    ctx.lineTo(235, 490);
+    ctx.lineWidth = 13;
+	ctx.strokeStyle = "black";
+	ctx.stroke();
+   
+   ctx.beginPath();
+   	ctx.moveTo(240, 410);
+    ctx.lineTo(240, 480);
+    ctx.lineWidth = 10;
+	ctx.strokeStyle = "black";
+	ctx.stroke();
+   
+   ctx.beginPath();
+   	ctx.moveTo(255, 300);
+    ctx.lineTo(240, 410);
+    ctx.lineWidth = 10;
+	ctx.strokeStyle = "black";
+	ctx.stroke();
+   
+   // torso
+   ctx.beginPath();
+   	ctx.moveTo(255, 175);
+    ctx.lineTo(255, 305);
+    ctx.lineWidth = 10;
+	ctx.strokeStyle = "black";
+	ctx.stroke();
+    
+   
+   //head
+   ctx.beginPath();
+   ctx.arc(255,125,50,0,2*Math.PI);
+	ctx.strokeStyle = "black";
+    ctx.fillStyle = "#74E2F3";
+    ctx.lineWidth= 5;
+	ctx.stroke();
+    ctx.fill();
+    // left eyebrows
+    ctx.beginPath();
+   	ctx.moveTo(245, 105);
+    ctx.lineTo(230, 105);
+    ctx.lineWidth = 3;
+	ctx.strokeStyle = "black";
+	ctx.stroke();
+    // right eyebrows
+    ctx.beginPath();
+   	ctx.moveTo(265, 105);
+    ctx.lineTo(280, 105);
+    ctx.lineWidth = 3;
+	ctx.strokeStyle = "black";
+	ctx.stroke();
+    
+    // eyes
+    ctx.beginPath();
+   ctx.arc(240,120,3,0,1*Math.PI);
+	ctx.strokeStyle = "black";
+    ctx.fillStyle = "black";
+    ctx.lineWidth= 5;
+	ctx.stroke();
+    ctx.fill();
+ 
+     ctx.beginPath();
+   ctx.arc(270,120,3,0,1*Math.PI);
+	ctx.strokeStyle = "black";
+    ctx.fillStyle = "black";
+    ctx.lineWidth= 5;
+	ctx.stroke();
+    ctx.fill();
+    //mouth
+    ctx.beginPath();
+   ctx.arc(255,150,10,0,1*Math.PI);
+	ctx.strokeStyle = "black";
+    ctx.fillStyle = "black";
+    ctx.lineWidth= 5;
+	ctx.stroke();
+    ctx.fill();
+     
+};
+</script>
+
+
+
+</body></html>

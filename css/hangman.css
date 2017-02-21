@@ -1,0 +1,192 @@
+html, * {
+  margin: 0;
+  padding: 0 auto;
+  background-color: #FCF7F4;
+}
+
+.container {
+  position: relative;;
+  margin: 10px auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 90%;
+  max-height: 1000px;
+  text-align: center;
+}
+
+/*Intro menu style*******************************/
+.intro {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  font-size: 2em;
+  height: 400px;
+  width: 800px;
+  padding: 30px;
+  text-align: center;
+}
+
+/* Hangman style*************************************/
+.hangman-panel {
+  padding: 30px;
+}
+
+#canvas {
+  border: 1px solid;
+  background-repeat: no-repeat;
+}
+
+.game-over {
+  position: absolute;
+     margin: auto;
+     width: 100%;
+     max-width: 200px;
+     height: 100px;
+     background-color: #73E1DF;
+     text-align: center;
+     padding: 70px;
+     top: 50%; left: 50%; transform: translate(-50%, -50%);
+     -webkit-box-shadow: 0px 10px 28px 0px rgba(0,0,0,0.58);
+     -moz-box-shadow: 0px 10px 28px 0px rgba(0,0,0,0.58);
+      box-shadow: 0px 10px 28px 0px rgba(0,0,0,0.58);
+}
+
+p {
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 15px;
+  background-color: transparent;
+}
+
+.play-again {
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 24px;
+  padding: 10px;
+  text-decoration: none;
+  border: none;
+  outline: none;
+}
+
+.play-again:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.underscore {
+  display: inline-block;
+  padding: 5px 3px 0 3px;
+  font-size: 2.5em;
+  border-bottom: 1px solid;
+  margin-left: 5px;
+  width: 30px;
+}
+
+.underscore label {
+  visibility: hidden;
+}
+
+.correct label {
+  visibility: visible;
+  color: #000 !important;
+}
+
+.guess-count {
+  font-size: 1.5em;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+.incorrect-letters {
+  font-size: 1.2em;
+  text-align: center;
+  padding: 2px 5px;
+}
+
+.game-lost label {
+  visibility: visible;
+  font-weight: bold;
+  color: red;
+}
+
+/*Style for alphabet**********************************/
+.abc {
+  padding: 5px;
+  text-align: center;
+  margin: 15px auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+
+.alphabets {
+  background: white;
+  display: inline-block;
+  padding: 8px 16px 10px;
+  margin: 3px;
+  font-weight: bold;
+  font-size: 26px;
+  cursor: pointer;
+  position: relative;
+  transition: .2s;
+  border-radius: 3px;
+}
+
+alphabets:hover {
+  background-color: #ff9933;
+}
+
+.abc div {
+  background: white;
+  display: inline-block;
+  padding: 8px 16px 10px;
+  margin: 3px;
+  font-weight: bold;
+  font-size: 26px;
+  cursor: pointer;
+  position: relative;
+  transition: .2s;
+  border-radius: 3px;
+}
+
+.abc div:hover {
+  background-color: #ff9933;
+}
+
+.abc .correctKey {
+  background-image: url("http://www.freeiconspng.com/uploads/checkmark-png-28.png");
+  background-size: contain;;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  opacity: .6;
+}
+
+.abc .wrongKey {
+  background-image: url("http://www.pngall.com/wp-content/uploads/2016/04/Red-Cross-Mark-Download-PNG.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  opacity: .6;
+}

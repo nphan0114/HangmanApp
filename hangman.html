@@ -1,0 +1,52 @@
+<!DocType HTML>
+<html>
+<head>
+  <title>Hangman App</title>
+  <link rel="stylesheet" type="text/css" href="css/hangman.css">
+</head>
+
+<html>
+<body>
+
+  <!-- Game intro screen -->
+  <div class="intro">
+    <h1>Let's Play Hangman!</h1>
+    <h4>Select Category</h4>
+    <input type="text" class="player-name" autocomplete="off" placeholder="Enter your name"/>
+    <button onclick="startWordGame()">Word</button>
+    <button onclick="newPuzzle()">Phrases</button>
+  </div>
+
+  <!-- Main container -->
+  <div class="container">
+
+    <!-- Canvas div -->
+    <div class="hangman-panel">
+      <canvas id="canvas" width="500" height="600"></canvas>
+      <div class="hangman-secret-panel">
+        <div class="guess-count"></div>
+
+          <div class="incorrect-letters"></div>
+
+        <div class="hangman-secret-word"></div>
+      </div>
+    </div>
+
+    <div class="game-over">
+      <p class="win">You won! Woot!</p>
+      <p class="lose">You lost...</p>
+      <button class="play-again" onclick="newGame()">Play again!</button>
+    </div>
+      <!-- Populate alphabet -->
+      <div class="abc"></div>
+
+  </div> <!-- end container div  -->
+  <img id="hanger" hidden src="http://i.imgur.com/Wbjv2Wt.png"/>
+</body>
+
+<!-- javascript files -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="js/hangman.js"></script>
+
+</html>

@@ -12,9 +12,9 @@
   <div class="intro">
     <h1>Let's Play Hangman!</h1>
     <h4>Select Category</h4>
-    <input type="text" class="player-name" autocomplete="off" placeholder="Enter your name"/>
-    <button onclick="startWordGame()">Word</button>
-    <button onclick="newPuzzle()">Phrases</button>
+    <input type="text" class="player-name" autocomplete="off" placeholder="Enter your name"/><br />
+    <button onclick="startWordGame()" class="word-game">Word</button>
+    <button onclick="newPuzzle()" class="phrases-game">Phrases</button>
   </div>
 
   <!-- Main container -->
@@ -23,15 +23,27 @@
     <!-- Canvas div -->
     <div class="hangman-panel">
       <canvas id="canvas" width="500" height="600"></canvas>
-      <div class="hangman-secret-panel">
-        <div class="guess-count"></div>
+      <div class="scoreboard">
+        <table id="score-table" cellspacing="0" hidden>
+          <thead>
+            <tr>
+              <th>Round</th>
+              <th>Player</th>
+              <th>Computer</th>
+            </tr>
+          </thead>
+          <tbody>
 
-          <div class="incorrect-letters"></div>
-
-        <div class="hangman-secret-word"></div>
+          </tbody>
+        </table>
       </div>
     </div>
 
+    <div class="hangman-secret-panel">
+      <div class="guess-count"></div>
+        <div class="incorrect-letters"></div>
+        <div class="hangman-secret-word"></div>
+    </div>
     <div class="game-over">
       <p class="win">You won! Woot!</p>
       <p class="lose">You lost...</p>

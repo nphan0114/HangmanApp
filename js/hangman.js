@@ -10,6 +10,7 @@ correctDiv,
 name,
 word = [],
 secretWord,
+introHidden,
 api = 'http://linkedin-reach.hagbpyjegb.us-west-2.elasticbeanstalk.com/words',
 random;
 abc.split('');
@@ -19,9 +20,11 @@ window.onload = function() {
   $('.abc').hide();
   $('#canvas').hide();
   $('.game-over').hide();
+  $('.intro input').focus();
+  introHidden = false;
 }
 
-// reset values & hide neccessary divs
+// reset values & hide neccessary menus
 function newGame(){
   $('.intro').hide();
   $('.hangman-panel').show();
@@ -35,6 +38,7 @@ function newGame(){
   resetToDefaults();
   resetSecretWord();
   getSecretWord();
+  introHidden = true; // for keypress implementation
 }
 
 // default setting functions
@@ -53,36 +57,42 @@ function resetToDefaults(){
 
 // clear secretWord field and set new word
 function resetSecretWord(){
-    $('.game-lost').each(function(div) {
-      var resetLine = $(this)[div];
-      var lineChildren = resetLine.children;
-      for (var j in lineChildren) {
-        if (lineChildren.hasOwnProperty(j)) {
-          lineChildren[j].setAttribute('class','underscore');
-        }
+  $('.game-lost').each(function(div) {
+    var resetLine = $(this)[div];
+    var lineChildren = resetLine.children;
+    for (var j in lineChildren) {
+      if (lineChildren.hasOwnProperty(j)) {
+        lineChildren[j].setAttribute('class','underscore');
       }
-      resetLine.setAttribute('class','hangman-secret-word');
-      $(this).text('');
+    }
+    resetLine.setAttribute('class','hangman-secret-word');
+    $(this).text('');
   });
 }
 
-// Hangman with single word
+// start Hangman with single word
 function startWordGame() {
   name = $('.player-name').val().length;
   if(name==0){
     alert("Please a name.");
     return;
   }
-  $('.guess-count').text("Lives: " + guess);
-  drawHanger();
   newGame();
+}
+
+// submit letter on clicks
+function getSelectedLetter(){
+  targetDiv = event.target || event.srcElement;
+  letter = targetDiv.id;
+  selectedLetter(letter);
 }
 
 // populate onscreen keyboard
 for (i in abc) {
   if (abc.hasOwnProperty(i)) {
     letter = abc.charAt(i);
-    $('.abc').append('<div onclick="selectedLetter()" class="alphabets" id="'+letter+'" value="'+letter+'">'+letter+'</div>');
+    // populate on screen keys
+    $('.abc').append('<div onclick="getSelectedLetter()" class="alphabets" id="'+letter+'" value="'+letter+'">'+letter+'</div>');
   }
 }
 
@@ -90,15 +100,38 @@ for (i in abc) {
 function underScore(){
   for(i=0; i<secretWord.length; i++){
     hiddenLetter = secretWord[i];
+    // assign underscore to Num letters in secretWord
     $('.hangman-secret-word').append('<div class="underscore" value="'+hiddenLetter+'">'+'<label>'+hiddenLetter+'</label>'+'</div>');
   }
 }
 
 // get word bank api
-  $.get(api,function(data){
-    word = data.split('\n');
-  });
+$.get(api,function(data){
+  word = data.split('\n');
+});
 
+// Name submit on enter key press
+$('.intro input').keyup(function(event){
+  if(event.keyCode == 13){
+    $('.word-game').click();
+  }
+});
+
+// detect keyboard press
+// if (introHidden) { // enable onWindow keypress if intro menu is hidden
+//   $(window).keypress(function(event){
+//     var thisKey = String.fromCharCode(event.which);
+//     for (var key in abc) {
+//       if (abc.hasOwnProperty(key)) {
+//         var alpha = abc.charAt(key);
+//         if (thisKey == alpha || thisKey == alpha.toLowerCase()) {
+//           var matchedKey = alpha;
+//           selectedLetter(matchedKey);
+//         }
+//       }
+//     }
+//   });
+// }
 
 // Get a random word from word bank API
 function getSecretWord() {
@@ -111,28 +144,26 @@ function getSecretWord() {
   // });
 }
 
-// phrases game - optional
-
-
 /* Get user selected letter and check if it's in the secretWord
 * Reveal hiddenLetter if it's found in secretWord
 */
-function selectedLetter(){
-  targetDiv = event.target || event.srcElement;
-  letter = targetDiv.id;
-  var checkedLetter = checkLetter(secretWord, letter);
+function selectedLetter(thisLetter){
+  // targetDiv = event.target || event.srcElement;
+  // letter = targetDiv.id;
+  var checkedLetter = checkLetter(secretWord, thisLetter);
   if (checkedLetter) {
     checkedLetter.forEach(function(item){
       hiddenLetter = secretWord[item];
-      correctDiv = $('.hangman-secret-word .underscore[value="'+letter+'"]');
+      correctDiv = $('.hangman-secret-word .underscore[value="'+thisLetter+'"]');
       correctDiv.addClass('correct');
       // add class 'correct' to correct key
-      document.getElementById(letter).setAttribute('class','correctKey');
+      document.getElementById(thisLetter).setAttribute('class','correctKey');
       numChar--;
     });
   } else {
-    document.getElementById(letter).setAttribute('class','wrongKey');
+    document.getElementById(thisLetter).setAttribute('class','wrongKey');
     badGuess();
+    // draw body part for each wrong guess.
     switch (guess) {
       case 5:
       drawHead();
@@ -174,10 +205,10 @@ function selectedLetter(){
 /* Check if letter exist in secretWord
 * get the indexes if word exist and return true; otherwise false;
 */
-function checkLetter(secretWord, thisLetter){
+function checkLetter(secretWord, checkLetter){
   indexes = [];
   secretWord.split('').forEach(function(letter, index){
-    if(letter == thisLetter){
+    if(letter == checkLetter){
       indexes.push(index);
     }
   });
@@ -194,7 +225,7 @@ function badGuess() {
   return false;
 }
 
-// game over
+// game over pop menu; give option to play again
 function gameOver(won) {
   if(!won) {
     $('.game-over').show();
@@ -209,7 +240,7 @@ function gameOver(won) {
   }
 }
 
-// canvas drawing
+// canvas drawing; clears canvas then redraw just the hanger
 function drawHanger(){
   var canvas = document.getElementById("canvas");
   var ctx = canvas.getContext("2d");

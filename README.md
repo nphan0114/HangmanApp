@@ -21,5 +21,22 @@ TODO: Write usage instructions
 
 ## History
     # API Error #
-Tried changing the dataType using `$.get(url,function(){}, 'jsonp')` but ran into another error. The error was `Uncaught SyntaxError: Illegal break statement` because it had the word 'break' in the list. The solution i found for this was to install the CORS extensions above and it worked.
+Tried changing the dataType using `$.get(url,function(){}, 'jsonp')` but ran into another error. The error was `Uncaught SyntaxError: Illegal break statement` because it had the word 'break' in the list. The solution I found for this was to install the CORS extensions above and it worked.
+
+    #  Creating keyboard layout #
+Oringally created a table with the alphabets in HTML.
+Eventually found a better alternative
+``` js
+var abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    letter,
+    i;
+
+abc.split('');
+for(i in abc){
+  if(abc.hasOwnProperty(i)) {
+    letter = abc.charAt[i];
+    $('#div').append('<div>' + letter + </div>');
+  }
+}
+```
 

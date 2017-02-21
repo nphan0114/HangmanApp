@@ -3,7 +3,7 @@
 A simple game of Hangman. Player will have 6 tries to guess the word.
 
 ## Pre-reqs
-Will might need to install CORS extension for API. I've tested with without the extension and received the follow error: `No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'null' is therefore not allowed access.`
+Will might need to install CORS extension in order to retrieve API. I've tested with without the extension and received the follow error: `No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'null' is therefore not allowed access.`
 
   
     Chrome ext: Allow-Control-Allow-Origin: *
@@ -20,5 +20,6 @@ TODO: Write usage instructions
 5. Submit a pull request :D
 
 ## History
-    I attempted to
+    # API Error #
+Tried changing the dataType using `$.get(url,function(){}, 'jsonp')` but ran into another error. The error was `Uncaught SyntaxError: Illegal break statement` because it had the word 'break' in the list. The solution i found for this was to install the CORS extensions above and it worked.
 

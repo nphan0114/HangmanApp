@@ -32,6 +32,7 @@ function newGame(){
   guess = 6;
   drawHanger();
   $('.hangman-panel').css('opacity','1');
+  $('.guess-count').text('Lives: ' + guess);
   resetToDefaults();
   resetSecretWord();
   getSecretWord();
@@ -86,6 +87,7 @@ function startWordGame() {
 function getSelectedLetter(){
   targetDiv = event.target || event.srcElement;
   letter = targetDiv.id;
+  // Do nothing if letter already played
   selectedLetter(letter);
 }
 
@@ -117,15 +119,12 @@ $('.intro input').keyup(function(event){
 // detect keyboard press - work in progress
 $(window).keypress(function(event){
   if(introHidden){
-    var thisKey = String.fromCharCode(event.which);
-    for (var key in abc) {
-      if (abc.hasOwnProperty(key)) {
-        var alpha = abc[key];
-        if (thisKey == alpha || thisKey == alpha.toLowerCase()) {
-          selectedLetter(alpha);
-        }
-      }
+    thisKey = String.fromCharCode(event.which).toUpperCase();
+    targetDiv = document.getElementById(thisKey);
+    if (targetDiv.className == 'correctKey' || targetDiv.className == 'wrongKey') {
+      return false;
     }
+    selectedLetter(thisKey);
   }
 });
 
@@ -150,10 +149,14 @@ function selectedLetter(thisLetter){
       // add class 'correct' to correct key
       document.getElementById(thisLetter).setAttribute('class','correctKey');
       numChar--;
+      console.log("WordLength: " + numChar);
+      console.log("Guess: " + guess);
     });
   } else {
     document.getElementById(thisLetter).setAttribute('class','wrongKey');
-    badGuess();
+    console.log("WordLength: " + numChar);
+    console.log("Guess: " + guess);
+    badGuess(thisLetter);
   }
 
   if (numChar < 1) {
@@ -182,11 +185,9 @@ function checkLetter(secretWord, checkLetter){
 }
 
 // Letter doesn't exist in secretWord; show guessed word and minus life
-function badGuess() {
+function badGuess(thisLetter) {
   guess--;
-  targetDiv = event.target || event.srcElement;
-  letter = targetDiv.id;
-  $('.incorrect-letters').append(' ' + letter);
+  $('.incorrect-letters').append(' ' + thisLetter);
   $('.guess-count').text("Lives: " + guess);
 
   // draw body part for each wrong guesses.
@@ -229,6 +230,7 @@ function gameOver(won) {
     $('.win').show();
   }
   $('.hangman-panel').css('opacity','.4');
+  $('.play-again').focus();
 }
 
 // canvas drawing; clears canvas then redraw just the hanger

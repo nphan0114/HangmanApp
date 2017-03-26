@@ -5,13 +5,11 @@ guess = 6,
 letter,
 numChar,
 targetDiv,
-hiddenLetter,
 correctDiv,
 name,
-word = [],
 secretWord,
 introHidden,
-api = 'http://linkedin-reach.hagbpyjegb.us-west-2.elasticbeanstalk.com/words',
+api = 'http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=true&includePartOfSpeech=noun&minCorpusCount=8000&maxCorpusCount=-1&minDictionaryCount=3&maxDictionaryCount=-1&minLength=6&maxLength=12&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5',
 random;
 abc.split('');
 
@@ -33,7 +31,6 @@ function newGame(){
   $('.game-over').hide();
   guess = 6;
   drawHanger();
-  $('.guess-count').text("Lives: " + guess);
   $('.hangman-panel').css('opacity','1');
   resetToDefaults();
   resetSecretWord();
@@ -104,16 +101,11 @@ for (i in abc) {
 // set empty slot for numLetter in secretWord
 function underScore(){
   for(i=0; i<secretWord.length; i++){
-    hiddenLetter = secretWord[i];
+    var hiddenLetter = secretWord[i];
     // assign underscore to Num letters in secretWord
     $('.hangman-secret-word').append('<div class="underscore" value="'+hiddenLetter+'">'+'<label>'+hiddenLetter+'</label>'+'</div>');
   }
 }
-
-// get word bank api
-$.get(api,function(data){
-  word = data.split('\n');
-});
 
 // Name submit on enter key press
 $('.intro input').keyup(function(event){
@@ -123,39 +115,36 @@ $('.intro input').keyup(function(event){
 });
 
 // detect keyboard press - work in progress
-// if (introHidden) { // enable onWindow keypress if intro menu is hidden
-  // $(window).keypress(function(event){
-  //   var thisKey = String.fromCharCode(event.which);
-  //   for (var key in abc) {
-  //     if (abc.hasOwnProperty(key)) {
-  //       var alpha = abc.charAt(key);
-  //       if (thisKey == alpha || thisKey == alpha.toLowerCase()) {
-  //         var matchedKey = alpha;
-  //         selectedLetter(matchedKey);
-  //       }
-  //     }
-  //   }
-  // });
-// }
+$(window).keypress(function(event){
+  if(introHidden){
+    var thisKey = String.fromCharCode(event.which);
+    for (var key in abc) {
+      if (abc.hasOwnProperty(key)) {
+        var alpha = abc[key];
+        if (thisKey == alpha || thisKey == alpha.toLowerCase()) {
+          selectedLetter(alpha);
+        }
+      }
+    }
+  }
+});
 
 // Get a random word from word bank API and set blank underscores
 function getSecretWord() {
-    random = Math.floor(Math.random() * word.length);
-    secretWord = word[random].toUpperCase();
+  $.get(api,function(data){
+    secretWord = data.word.toUpperCase();
     numChar = secretWord.length;
     underScore();
+  });
 }
 
 /* Get user selected letter and check if it's in the secretWord
 * Reveal hiddenLetter if it's found in secretWord
 */
 function selectedLetter(thisLetter){
-  // targetDiv = event.target || event.srcElement;
-  // letter = targetDiv.id;
   var checkedLetter = checkLetter(secretWord, thisLetter);
   if (checkedLetter) {
-    checkedLetter.forEach(function(item){
-      hiddenLetter = secretWord[item];
+    checkedLetter.forEach(function(){
       correctDiv = $('.hangman-secret-word .underscore[value="'+thisLetter+'"]');
       correctDiv.addClass('correct');
       // add class 'correct' to correct key
@@ -233,14 +222,13 @@ function gameOver(won) {
     $('.game-over').show();
     $('.win').hide();
     $('.lose').show();
-    $('.hangman-panel').css('opacity','.4');
   } else {
     drawHead();
     $('.game-over').show();
     $('.lose').hide();
     $('.win').show();
-    $('.hangman-panel').css('opacity','.4');
   }
+  $('.hangman-panel').css('opacity','.4');
 }
 
 // canvas drawing; clears canvas then redraw just the hanger

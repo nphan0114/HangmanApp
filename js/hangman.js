@@ -19,11 +19,12 @@ window.onload = function() {
   $('#canvas').hide();
   $('.game-over').hide();
   $('.intro input').focus();
+  $('.player-two').hide();
   introHidden = false;
 }
 
 // reset values & hide neccessary menus
-function newGame(){
+function newGame(gameType){
   $('.intro').hide();
   $('.hangman-panel').show();
   $('#canvas').show();
@@ -35,6 +36,9 @@ function newGame(){
   $('.guess-count').text('Lives: ' + guess);
   resetToDefaults();
   resetSecretWord();
+  if (gameType=="multiplayer") {
+    multiplayer();
+  }
   getSecretWord();
   introHidden = true; // for keypress implementation
 }
@@ -73,14 +77,31 @@ function resetSecretWord(){
   $('.hangman-secret-word').text('');
 }
 
-// start Hangman with single word
-function startWordGame() {
-  name = $('.player-name').val().length;
-  if(name==0){
+// multiplayer
+function multiplayer() {
+  var playerOne = $('.player-one').val().length;
+  var playerTwo = $('.player-two').val().length;
+  if(playerOne==0){
+    alert("Enter name for player 1.");
+    return false;
+  }
+  if(playerTwo==0){
+    alert("Enter name for player 2.");
+    return false;
+  }
+  secretWord = prompt("Enter secret word").toUpperCase();
+  numChar = secretWord.length;
+  underscore();
+  newGame("multiplayer");
+}
+// single player
+function singleplayer(){
+  var playerOne = $('.player-one').val().length;
+  if(playerOne==0){
     alert("Please a name.");
     return;
   }
-  newGame();
+  newGame("single");
 }
 
 // submit letter on clicks

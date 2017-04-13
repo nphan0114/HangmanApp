@@ -37,9 +37,13 @@ function newGame(gameType){
   resetToDefaults();
   resetSecretWord();
   if (gameType=="multiplayer") {
-    multiplayer();
+    secretWord = prompt("Enter secret word").toUpperCase();
+    numChar = secretWord.length;
+    underScore();
   }
+  if (gameType=="singleplayer"){
   getSecretWord();
+  }
   introHidden = true; // for keypress implementation
 }
 
@@ -79,6 +83,7 @@ function resetSecretWord(){
 
 // multiplayer
 function multiplayer() {
+  $('.player-two').show();
   var playerOne = $('.player-one').val().length;
   var playerTwo = $('.player-two').val().length;
   if(playerOne==0){
@@ -89,11 +94,9 @@ function multiplayer() {
     alert("Enter name for player 2.");
     return false;
   }
-  secretWord = prompt("Enter secret word").toUpperCase();
-  numChar = secretWord.length;
-  underscore();
   newGame("multiplayer");
 }
+
 // single player
 function singleplayer(){
   var playerOne = $('.player-one').val().length;
@@ -101,7 +104,7 @@ function singleplayer(){
     alert("Please a name.");
     return;
   }
-  newGame("single");
+  newGame("singleplayer");
 }
 
 // submit letter on clicks
@@ -127,6 +130,13 @@ function underScore(){
     var hiddenLetter = secretWord[i];
     // assign underscore to Num letters in secretWord
     $('.hangman-secret-word').append('<div class="underscore" value="'+hiddenLetter+'">'+'<label>'+hiddenLetter+'</label>'+'</div>');
+    // reveal block if word contrains a hyphen (-) and minus X numChar
+    if (hiddenLetter=='-') {
+      correctDiv = $('.hangman-secret-word .underscore[value="-"]');
+      correctDiv.addClass('correct');
+      // add class 'correct' to correct key
+      numChar--;
+    }
   }
 }
 
@@ -170,13 +180,9 @@ function selectedLetter(thisLetter){
       // add class 'correct' to correct key
       document.getElementById(thisLetter).setAttribute('class','correctKey');
       numChar--;
-      console.log("WordLength: " + numChar);
-      console.log("Guess: " + guess);
     });
   } else {
     document.getElementById(thisLetter).setAttribute('class','wrongKey');
-    console.log("WordLength: " + numChar);
-    console.log("Guess: " + guess);
     badGuess(thisLetter);
   }
 
